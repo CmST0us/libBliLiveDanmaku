@@ -70,16 +70,23 @@ const std::string blilive::DanmakuCommandPacket::Command::Unsupport("_Unsupport"
 #define GET_JSON_OBJ(ptr, obj) auto obj = *static_cast<Json::Value *>(ptr)
 
 blilive::DanmakuCommandPacket::DanmakuCommandPacket(std::string& jsonStr) {
-    _jsonObjPtr = std::unique_ptr<void>(static_cast<void *>(new Json::Value));
+    _jsonObjPtr = static_cast<void *>(new Json::Value);
     Json::CharReaderBuilder b;
     Json::CharReader *jsonReader(b.newCharReader());
     JSONCPP_STRING errs;
     const char *pStr = jsonStr.c_str();
-    bool success = jsonReader->parse(pStr, pStr + strlen(pStr), static_cast<Json::Value *>(_jsonObjPtr.get()), &errs);
+    bool success = jsonReader->parse(pStr, pStr + strlen(pStr), static_cast<Json::Value *>(_jsonObjPtr), &errs);
     if (!success) {
         throw blilive::Error::JsonParse;
     }
     delete jsonReader;
+}
+
+blilive::DanmakuCommandPacket::~DanmakuCommandPacket() {
+    if (_jsonObjPtr != nullptr) {
+        delete static_cast<Json::Value *>(_jsonObjPtr);
+        _jsonObjPtr = nullptr;
+    }
 }
 
 blilive::PacketOperationCode blilive::DanmakuCommandPacket::operationCode() {
@@ -88,7 +95,7 @@ blilive::PacketOperationCode blilive::DanmakuCommandPacket::operationCode() {
 
 
 std::string blilive::DanmakuCommandPacket::command() {
-    GET_JSON_OBJ(this->_jsonObjPtr.get(), jsonObj);
+    GET_JSON_OBJ(this->_jsonObjPtr, jsonObj);
     auto cmd = jsonObj["cmd"];
     if (cmd.type() == Json::ValueType::stringValue) {
         return cmd.asString();
@@ -102,20 +109,20 @@ blilive::DanmakuCommandDanmuMessagePacket::DanmakuCommandDanmuMessagePacket(std:
 }
 
 std::string blilive::DanmakuCommandDanmuMessagePacket::text() {
-    GET_JSON_OBJ(this->_jsonObjPtr.get(), jsonObj);
+    GET_JSON_OBJ(this->_jsonObjPtr, jsonObj);
     auto info = jsonObj["info"];
     return info[1].asString();
 }
 
 std::string blilive::DanmakuCommandDanmuMessagePacket::authorNick() {
-    GET_JSON_OBJ(this->_jsonObjPtr.get(), jsonObj);
+    GET_JSON_OBJ(this->_jsonObjPtr, jsonObj);
     auto info = jsonObj["info"];
     auto authorArray = info[2];
     return authorArray[1].asString();
 }
 
 int blilive::DanmakuCommandDanmuMessagePacket::authorID() {
-    GET_JSON_OBJ(this->_jsonObjPtr.get(), jsonObj);
+    GET_JSON_OBJ(this->_jsonObjPtr, jsonObj);
     auto info = jsonObj["info"];
     auto authorArray = info[2];
     return authorArray[0].asInt();

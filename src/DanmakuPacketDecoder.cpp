@@ -1,7 +1,7 @@
 #include <format.hpp>
 #include "DanmakuPacketDecoder.hpp"
 
-void blilive::DanmakuPacketDecoder::decode(std::string& data) {
+void blilive::DanmakuPacketDecoder::dispatch(std::string& data) {
    format::byte_array array(data);
    try {
        while (array.get_bytes_available() > 0) {

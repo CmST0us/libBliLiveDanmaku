@@ -18,7 +18,7 @@ public:
     DanmakuPacketDecoderCommandMessageHandler mCommandMessageHandler{nullptr};
     void dispatch(std::string& _data);
 private:
-    void dispatchCommandPayload(std::string &data);
+    void dispatchCommandPayload(std::string& data);
 }; // DanmakuPacketDecoder
 
 }

@@ -65,11 +65,12 @@ public:
     };
 
     DanmakuCommandPacket(std::string& jsonStr);
+    virtual ~DanmakuCommandPacket() override;
     virtual PacketOperationCode operationCode() override;
     std::string command();
 
 protected:
-    std::unique_ptr<void> _jsonObjPtr{nullptr};
+    void *_jsonObjPtr{nullptr};
 }; // DanmakuCommandPacket
 
 class DanmakuCommandDanmuMessagePacket: public DanmakuCommandPacket {
