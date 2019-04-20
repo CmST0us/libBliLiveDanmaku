@@ -3,12 +3,10 @@ cmake_minimum_required(VERSION 3.0)
 project(BliLiveDanmaku)
 
 aux_source_directory(jsoncpp/lib_json BLI_JSONCPP_SOURCE_DIR)
-aux_source_directory(zlib/src BLI_ZLIB_SOURCE_DIR)
 aux_source_directory(src BLI_DANMAKU_SRC_DIR)
 
-include_directories(PUBLIC format)
-include_directories(PUBLIC jsoncpp/include)
-include_directories(PUBLIC zlib/include)
+include_directories(format)
+include_directories(jsoncpp/include)
 
 # Library
 add_library(
