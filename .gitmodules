@@ -1,3 +1,6 @@
 [submodule "format"]
 	path = format
 	url = https://github.com/CmST0us/format
+[submodule "zstr"]
+	path = zstr
+	url = https://github.com/mateidavid/zstr.git

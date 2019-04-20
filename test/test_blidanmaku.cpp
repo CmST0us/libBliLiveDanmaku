@@ -2,6 +2,7 @@
 #include <format.hpp>
 #include <json/json.h>
 #include <memory>
+#include <zstr.hpp>
 
 #include "DanmakuPacket.hpp"
 

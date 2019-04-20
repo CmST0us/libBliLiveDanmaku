@@ -7,6 +7,8 @@ aux_source_directory(src BLI_DANMAKU_SRC_DIR)
 
 include_directories(format)
 include_directories(jsoncpp/include)
+include_directories(zstr/src)
+link_libraries(z)
 
 # Library
 add_library(
