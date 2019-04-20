@@ -97,6 +97,10 @@ std::string blilive::DanmakuCommandPacket::command() {
 }
 
 #pragma mark Danmu Message
+blilive::DanmakuCommandDanmuMessagePacket::DanmakuCommandDanmuMessagePacket(std::string& jsonStr) : blilive::DanmakuCommandPacket(jsonStr) {
+
+}
+
 std::string blilive::DanmakuCommandDanmuMessagePacket::text() {
     GET_JSON_OBJ(this->_jsonObjPtr.get(), jsonObj);
     auto info = jsonObj["info"];

@@ -74,6 +74,7 @@ protected:
 
 class DanmakuCommandDanmuMessagePacket: public DanmakuCommandPacket {
 public:
+    DanmakuCommandDanmuMessagePacket(std::string& jsonStr);
     std::string text();
     std::string authorNick();
     int authorID();
