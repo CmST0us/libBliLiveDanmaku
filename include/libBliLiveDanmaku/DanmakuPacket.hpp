@@ -3,9 +3,14 @@
 
 #include <iostream>
 #include <string>
+#include <memory>
 
 namespace blilive
 {
+
+enum class Error {
+    JsonParse,
+};
 
 // Operation Code
 enum class PacketOperationCode {
@@ -64,9 +69,15 @@ public:
     std::string command();
 
 protected:
-    std::string _jsonString = "";
-};
+    std::unique_ptr<void> _jsonObjPtr{nullptr};
+}; // DanmakuCommandPacket
 
+class DanmakuCommandDanmuMessagePacket: public DanmakuCommandPacket {
+public:
+    std::string text();
+    std::string authorNick();
+    int authorID();
+}; // DanmakuCommandDanmuMessagePacket
 
 } //blilive
 
