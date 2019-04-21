@@ -47,7 +47,7 @@ install(TARGETS BliLiveDanmaku
 
 install(
     DIRECTORY
-        include/libSocketKit
+        include/libBliLiveDanmaku
     DESTINATION
         include
 )
