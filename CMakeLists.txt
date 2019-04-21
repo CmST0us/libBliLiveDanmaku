@@ -36,6 +36,27 @@ target_include_directories(
     include/libBliLiveDanmaku
 )
 
+set(CMAKE_INSTALL_PREFIX build)
+
+install(TARGETS BliLiveDanmaku
+    EXPORT BliLiveDanmaku-targets
+    ARCHIVE DESTINATION lib
+    LIBRARY DESTINATION lib
+    RUNTIME DESTINATION bin
+)
+
+install(
+    DIRECTORY
+        include/libSocketKit
+    DESTINATION
+        include
+)
+
+install(EXPORT BliLiveDanmaku-targets
+    NAMESPACE BliLiveDanmaku::
+    FILE BliLiveDanmaku-config.cmake
+    DESTINATION cmake
+)
 
 # Test
 add_executable(
