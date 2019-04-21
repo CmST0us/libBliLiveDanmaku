@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.0)
 
 project(BliLiveDanmaku)
+option(BLI_EMB_JSONCPP "Embed jsoncpp" OFF)
+if (NOT DEFINED BLI_EMB_JSONCPP)
+    set(BLI_EMB_JSONCPP OFF)
+endif()
 
 aux_source_directory(jsoncpp/lib_json BLI_JSONCPP_SOURCE_DIR)
 aux_source_directory(src BLI_DANMAKU_SRC_DIR)
@@ -8,14 +12,22 @@ aux_source_directory(src BLI_DANMAKU_SRC_DIR)
 include_directories(format)
 include_directories(jsoncpp/include)
 include_directories(zstr/src)
+
 link_libraries(z)
 
 # Library
-add_library(
-    BliLiveDanmaku
-    ${BLI_DANMAKU_SRC_DIR}
-    ${BLI_JSONCPP_SOURCE_DIR}
-)
+if (BLI_EMB_JSONCPP STREQUAL "ON")
+    add_library(
+        BliLiveDanmaku
+        ${BLI_DANMAKU_SRC_DIR}
+        ${BLI_JSONCPP_SOURCE_DIR}
+    )
+else()
+    add_library(
+        BliLiveDanmaku
+        ${BLI_DANMAKU_SRC_DIR}
+    )
+endif()
 
 
 target_include_directories(

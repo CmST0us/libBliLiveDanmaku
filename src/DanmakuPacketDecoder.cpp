@@ -22,15 +22,17 @@ void blilive::DanmakuPacketDecoder::dispatch(std::string& data) {
                std::stringbuf b;
                b.sputn(rawPayloadData.c_str(), static_cast<std::streamsize>(rawPayloadData.size()));
                zstr::istreambuf decompressBuf(&b);
-               size_t decompressedSize = static_cast<size_t>(decompressBuf.in_avail());
-               if (decompressedSize == 0) {
-                   continue;
+               zstr::istream decompressStream(&decompressBuf);
+               size_t bufferSize = 10240;
+               std::unique_ptr<char> bufPtr(new char[bufferSize]);
+               std::stringstream ss;
+               while (true) {
+                   decompressStream.read(bufPtr.get(), static_cast<std::streamsize>(bufferSize));
+                   std::streamsize cnt = decompressStream.gcount();
+                   if (cnt == 0) break;
+                   ss.write(bufPtr.get(), cnt);
                }
-
-               std::unique_ptr<char> bufPtr(new char[decompressedSize]);
-               memset(static_cast<void *>(bufPtr.get()), 0, decompressedSize);
-               decompressBuf.sgetn(bufPtr.get(), static_cast<std::streamsize>(decompressedSize));
-               payloadData = std::string(bufPtr.get(), decompressedSize);
+               payloadData = ss.str();
                this->dispatch(payloadData);
            } else {
                // 非压缩数据
