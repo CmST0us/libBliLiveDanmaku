@@ -64,7 +64,7 @@ public:
         static const std::string Unsupport;
     };
 
-    DanmakuCommandPacket(std::string& jsonStr);
+    DanmakuCommandPacket(const std::string& jsonStr);
     virtual ~DanmakuCommandPacket() override;
     virtual PacketOperationCode operationCode() override;
     std::string command();
@@ -75,7 +75,7 @@ protected:
 
 class DanmakuCommandDanmuMessagePacket: public DanmakuCommandPacket {
 public:
-    DanmakuCommandDanmuMessagePacket(std::string& jsonStr);
+    DanmakuCommandDanmuMessagePacket(const std::string& jsonStr);
     std::string text();
     std::string authorNick();
     int authorID();

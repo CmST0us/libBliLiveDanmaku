@@ -36,10 +36,8 @@ target_include_directories(
     include/libBliLiveDanmaku
 )
 
-set(CMAKE_INSTALL_PREFIX build)
-
 install(TARGETS BliLiveDanmaku
-    EXPORT BliLiveDanmaku-targets
+    EXPORT BliLiveDanmakuTargets
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin
@@ -52,9 +50,9 @@ install(
         include
 )
 
-install(EXPORT BliLiveDanmaku-targets
+install(EXPORT BliLiveDanmakuTargets
     NAMESPACE BliLiveDanmaku::
-    FILE BliLiveDanmaku-config.cmake
+    FILE blilivedanmaku-config.cmake
     DESTINATION cmake
 )
 

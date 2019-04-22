@@ -69,7 +69,7 @@ const std::string blilive::DanmakuCommandPacket::Command::Unsupport("_Unsupport"
 
 #define GET_JSON_OBJ(ptr, obj) auto obj = *static_cast<Json::Value *>(ptr)
 
-blilive::DanmakuCommandPacket::DanmakuCommandPacket(std::string& jsonStr) {
+blilive::DanmakuCommandPacket::DanmakuCommandPacket(const std::string& jsonStr) {
     _jsonObjPtr = static_cast<void *>(new Json::Value);
     Json::CharReaderBuilder b;
     Json::CharReader *jsonReader(b.newCharReader());
@@ -104,7 +104,7 @@ std::string blilive::DanmakuCommandPacket::command() {
 }
 
 #pragma mark Danmu Message
-blilive::DanmakuCommandDanmuMessagePacket::DanmakuCommandDanmuMessagePacket(std::string& jsonStr) : blilive::DanmakuCommandPacket(jsonStr) {
+blilive::DanmakuCommandDanmuMessagePacket::DanmakuCommandDanmuMessagePacket(const std::string& jsonStr) : blilive::DanmakuCommandPacket(jsonStr) {
 
 }
 

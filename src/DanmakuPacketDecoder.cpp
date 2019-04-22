@@ -2,7 +2,11 @@
 #include <zstr.hpp>
 #include "DanmakuPacketDecoder.hpp"
 
-void blilive::DanmakuPacketDecoder::dispatch(std::string& data) {
+blilive::DanmakuPacketDecoder::DanmakuPacketDecoder() {
+
+}
+
+void blilive::DanmakuPacketDecoder::dispatch(const std::string& data) {
    format::byte_array array(data);
    try {
        while (array.get_bytes_available() > 0) {
@@ -47,7 +51,7 @@ void blilive::DanmakuPacketDecoder::dispatch(std::string& data) {
    }
 }
 
-void blilive::DanmakuPacketDecoder::dispatchCommandPayload(std::string &data) {
+void blilive::DanmakuPacketDecoder::dispatchCommandPayload(const std::string &data) {
     auto commandPacket = blilive::DanmakuCommandPacket(data);
     auto command = commandPacket.command();
     if (command == blilive::DanmakuCommandPacket::Command::RecvDanmaku) {
