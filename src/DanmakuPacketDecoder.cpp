@@ -59,5 +59,6 @@ void blilive::DanmakuPacketDecoder::dispatchCommandPayload(const std::string &da
         if (this->mCommandMessageHandler != nullptr) {
             this->mCommandMessageHandler(danmuPacket, command);
         }
+        delete danmuPacket;
     }
 }
